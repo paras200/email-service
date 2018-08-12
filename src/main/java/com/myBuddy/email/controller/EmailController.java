@@ -98,8 +98,8 @@ public class EmailController {
 					return "Parameters not specified";
 				helper.setTo(details.toList.toArray(new String[details.toList.size()]));
 				helper.setText("<p>Hello,<br></p><p><br>Request recieved for withdrawal of "
-						+ details.paramMap.get("amount") + "  " + details.paramMap.get("ccy")
-						+ " which is equivalnet of " + details.paramMap.get("credit")
+					//	+ details.paramMap.get("amount") + "  " + details.paramMap.get("ccy")
+						+ " credit : " + details.paramMap.get("credit")
 						+ " for you account linked with email -  " + details.paramMap.get("email")
 						+ "  . We will process this request within 5-7 business working days and the amount will be credited to your account. Please write to us in case of any doubts.<br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
 						true);
