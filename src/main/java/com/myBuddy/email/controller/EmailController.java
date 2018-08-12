@@ -1,14 +1,20 @@
 package com.myBuddy.email.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,6 +69,16 @@ public class EmailController {
 						+ " Please enroll to start working on this project. <br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
 						true);
 				helper.setSubject("New Projec created - enrollment open !!");
+
+			}if (details.template.equalsIgnoreCase("new-project-added-po")) {
+				if (details.paramMap == null || details.paramMap.isEmpty())
+					return "Parameters not specified";
+				helper.setTo(details.toList.toArray(new String[details.toList.size()]));
+				helper.setText("<p>Hello,<br></p><p><br>New project has been created by user id "
+						+ details.paramMap.get("fromUser")
+						+ " We will notify you if there are any new enrollments, please check Project activities page for any updates. <br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
+						true);
+				helper.setSubject("New Projec created - "+details.paramMap.get("projectName"));
 
 			} else if (details.template.equalsIgnoreCase("payment-done")) {
 				if (details.paramMap == null || details.paramMap.isEmpty())
@@ -139,8 +155,7 @@ public class EmailController {
 					return "Parameters not specified";
 				helper.setTo(details.toList.toArray(new String[details.toList.size()]));
 				helper.setText("<p>Hello,<br></p><p><br>New user with email - " + details.paramMap.get("email")
-						+ " with skills as " + details.paramMap.get("skills")
-						+ " has been added. <br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
+						+ " has been added to My Buddy platform, Welcome Aboard. <br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
 						true);
 				helper.setSubject("Welcome to My Buddy");
 
@@ -190,4 +205,62 @@ public class EmailController {
 		sender.send(message);
 		return "Mail Sent Success!";
 	}
+	
+	@Autowired
+    JavaMailSender mailSender;
+     
+    @Autowired
+    VelocityEngine velocityEngine;
+   
+    @PostMapping("/sendVelocityMail")
+	public String sendVelocityMail(@RequestBody EmailDetails details) {
+        
+        MimeMessagePreparator preparator = getMessagePreparator(details);
+         
+        try {
+            mailSender.send(preparator);
+            System.out.println("Message has been sent.............................");
+        }
+        catch (MailException ex) {
+            System.err.println(ex.getMessage());
+        }
+		return "Mail sent success!!";
+	}
+	private MimeMessagePreparator getMessagePreparator(final EmailDetails details){
+        
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+ 
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+  
+                helper.setSubject("This is Subject");
+                helper.setFrom("My-Buddy");
+                helper.setTo(details.toList.toArray(new String[details.toList.size()]));
+      
+                Map<String, Object> model = new HashMap<String, Object>();
+                model.put("EmailDetails", details);
+                 
+                String text = geVelocityTemplateContent(model);//Use Freemarker or Velocity
+                System.out.println("Template content : "+text);
+ 
+                // use the true flag to indicate you need a multipart message
+                helper.setText(text, true);
+
+ 
+            }
+        };
+        return preparator;
+    }
+     
+     
+    public String geVelocityTemplateContent(Map<String, Object> model){
+        StringBuffer content = new StringBuffer();
+        try{
+            content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "src/main/resources/MailTemplate.vm/MailTemplate.vm", model));
+            return content.toString();
+        }catch(Exception e){
+            System.out.println("Exception occured while processing velocity template:"+e.getMessage());
+        }
+          return "";
+    }
 }
