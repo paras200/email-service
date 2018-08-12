@@ -172,14 +172,16 @@ public class EmailController {
 		sender.send(message);
 		return "Mail Sent Success!";
 	}
-
+	
+	
 	@PostMapping("/sendMail")
 	public String sendMail(@RequestBody EmailDetails details) {
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		try {
 			helper.setTo(details.toList.toArray(new String[details.toList.size()]));
-			helper.setText(details.body);
+			helper.setText("<p>Hello,<br></p><p><br>"+details.body
+			+ "<br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>", true);
 			helper.setSubject(details.subject);
 		} catch (MessagingException e) {
 			e.printStackTrace();
