@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myBuddy.email.model.EmailDetails;
 
+@SuppressWarnings("deprecation")
 @RestController
 @CrossOrigin(origins = "*")
 // @RequestMapping(path="/email")
@@ -43,7 +44,8 @@ public class EmailController {
 			helper.setFrom("My-Buddy");
 			helper.setSubject("My Buddy Email Service");
 			helper.setText(
-					"<p>Dear Sir or Madam:<br></p><p><br>I have recently ordered a new pair of soccer cleats (item #6542951) from your website on June 21. I received the order on June 26. Unfortunately, when I opened it, I saw that the cleats were used. The cleats had dirt all over it and there was a small tear in front of the part where the left toe would go.  My order number is AF26168156.<br></p><p><br>To resolve the problem, I would like you to credit my account for the amount charged for my cleats; I have already went out and bought a new pair of cleats at my local sporting goods store so sending another would result in me having two pairs of the same cleats.<br></p><p><br>Than you for taking the time to read this letter.  I have been a satisfied customer of your company for many years and this is the first time I have encountered a problem.  If you need to contact me, you can reach me at (555) 555-5555.<br><br><br><br>Sincerely,<br></p><p><br><i>Signature</i></p>",
+					"<p>Dear Owners:<br></p><p><br>I am a test email to cirtify that email service is up<br></p><p><br> "
+					+ "If you have any doubts solve it within yourself :).<br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
 					true);
 		} catch (MessagingException e) {
 			e.printStackTrace();
@@ -164,9 +166,9 @@ public class EmailController {
 				if (details.paramMap == null || details.paramMap.isEmpty())
 					return "Parameters not specified";
 				helper.setTo(details.toList.toArray(new String[details.toList.size()]));
-				helper.setText("<p>Hello,<br></p><p><br>New Enrollement - " + details.paramMap.get("email")
+				helper.setText("<p>Hello,<br></p><p><br>New Enrollement made by - " + details.paramMap.get("email")
 						+ " with skills as " + details.paramMap.get("skills")
-						+ "<br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>", true);
+						+ ". Please log in to the platform to approve enrollment and interact with the Buddy. <br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>", true);
 				helper.setSubject("New enrollment");
 
 			} else if (details.template.equalsIgnoreCase("new-enrollment-buddy")) {
@@ -257,7 +259,7 @@ public class EmailController {
     public String geVelocityTemplateContent(Map<String, Object> model){
         StringBuffer content = new StringBuffer();
         try{
-            content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "src/main/resources/MailTemplate.vm/MailTemplate.vm", model));
+            content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "MailTemplate.vm", model));
             return content.toString();
         }catch(Exception e){
             System.out.println("Exception occured while processing velocity template:"+e.getMessage());
