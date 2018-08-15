@@ -55,7 +55,7 @@ public class EmailController {
 		return "Mail Sent Success!";
 	}
 
-	@PostMapping("/sendTemplateMail")
+	@PostMapping("/sendTemplateMail_fallback")
 	public String sendMailfromTemplate(@RequestBody EmailDetails details) throws MessagingException {
 		if (details.template == null || details.template.trim().equals(""))
 			return "Template name not specified";
@@ -215,8 +215,11 @@ public class EmailController {
     @Autowired
     VelocityEngine velocityEngine;
    
-    @PostMapping("/sendVelocityMail")
+    @PostMapping("/sendTemplateMail")
 	public String sendVelocityMail(@RequestBody EmailDetails details) {
+    	
+    	if (details.template == null || details.template.trim().equals(""))	return "Template name not specified";
+    	if (details.paramMap == null || details.paramMap.isEmpty()) return "Parameters not specified";
         
         MimeMessagePreparator preparator = getMessagePreparator(details);
          
@@ -227,7 +230,7 @@ public class EmailController {
         catch (MailException ex) {
             System.err.println(ex.getMessage());
         }
-		return "Mail sent success!!";
+        return "Mail Sent Success!";
 	}
 	private MimeMessagePreparator getMessagePreparator(final EmailDetails details){
         
@@ -235,15 +238,17 @@ public class EmailController {
  
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-  
-                helper.setSubject("This is Subject");
+                		//changed
+                helper.setSubject((String) subjectMap.get(details.getTemplate()));
+             
                 helper.setFrom("My-Buddy");
                 helper.setTo(details.toList.toArray(new String[details.toList.size()]));
       
                 Map<String, Object> model = new HashMap<String, Object>();
-                model.put("EmailDetails", details);
+                
+                model.put("details", details);
                  
-                String text = geVelocityTemplateContent(model);//Use Freemarker or Velocity
+                String text = geVelocityTemplateContent(model, details.getTemplate());
                 System.out.println("Template content : "+text);
  
                 // use the true flag to indicate you need a multipart message
@@ -256,14 +261,33 @@ public class EmailController {
     }
      
      
-    public String geVelocityTemplateContent(Map<String, Object> model){
+    public String geVelocityTemplateContent(Map<String, Object> model, String template){
         StringBuffer content = new StringBuffer();
         try{
-            content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "MailTemplate.vm", model));
+            content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, template+".vm", model));
             return content.toString();
         }catch(Exception e){
             System.out.println("Exception occured while processing velocity template:"+e.getMessage());
         }
           return "";
     }
+    
+    private static Map<String,String> subjectMap = new HashMap<String,String>();
+    static {
+    	subjectMap.put("new-project-added", "New Projec created - enrollment open !!");
+    	subjectMap.put("new-project-added-po", "New Projec created ");
+    	subjectMap.put("payment-done", "Payment done successfully");
+    	subjectMap.put("payment-failed", "Payment Failed");
+    	subjectMap.put("add-credit", "Credits added to your profile");
+    	
+    	subjectMap.put("withdraw-credit", "Withdraw credit request - Successful");
+    	subjectMap.put("txn-success", "Withdraw credit request - Successful");
+    	subjectMap.put("txn-failed", "Transaction faliure");
+    	subjectMap.put("add-credit-failed", "Credit addition faliure ");
+
+    	subjectMap.put("new-user", "Welcome to My Buddy");
+    	subjectMap.put("new-enrollment-po", "New enrollment");
+    	subjectMap.put("new-enrollment-buddy", "New enrollment");
+    }
+  
 }

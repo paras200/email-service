@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <h3>Body  -   ${details.subject}</h3>
+ 
+        <div>
+            <p>Hello,<br></p><p><br>New user with email -  ${details.body} has been added to My Buddy platform, Welcome Aboard. <br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>
+        </div>
+        
+        
+    </body>
+</html>
