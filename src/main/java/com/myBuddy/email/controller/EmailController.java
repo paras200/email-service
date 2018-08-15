@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -28,12 +30,36 @@ import com.myBuddy.email.model.EmailDetails;
 @CrossOrigin(origins = "*")
 // @RequestMapping(path="/email")
 public class EmailController {
-	@Autowired
-	private JavaMailSender sender;
 
+	private static Map<String,String> subjectMap = new HashMap<String,String>();
+    static {
+    	subjectMap.put("new-project-added", "New Project created - Enrollment open !!");
+    	subjectMap.put("new-project-added-po", "New Projec created ");
+    	subjectMap.put("payment-done", "Payment done successfully");
+    	subjectMap.put("payment-failed", "Payment Failed");
+    	subjectMap.put("add-credit", "Credits added to your profile");
+    	
+    	subjectMap.put("withdraw-credit", "Withdraw credit request - Successful");
+    	subjectMap.put("txn-success", "Withdraw credit request - Successful");
+    	subjectMap.put("txn-failed", "Transaction faliure");
+    	subjectMap.put("add-credit-failed", "Credit addition faliure ");
+
+    	subjectMap.put("new-user", "Welcome to My Buddy");
+    	subjectMap.put("new-enrollment-po", "New enrollment");
+    	subjectMap.put("new-enrollment-buddy", "New enrollment");
+    }
+    
+    @Autowired
+    JavaMailSender mailSender;
+     
+    @Autowired
+    VelocityEngine velocityEngine;
+    
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
+    
 	@RequestMapping("/sendMail")
 	public String sendMail() throws MessagingException {
-		MimeMessage message = sender.createMimeMessage();
+		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
 		List<String> emailTo = new ArrayList<>();
 		emailTo.add("agnihotri.paras@gmail.com");
@@ -51,7 +77,7 @@ public class EmailController {
 			e.printStackTrace();
 			return "Error while sending mail ..";
 		}
-		sender.send(message);
+		mailSender.send(message);
 		return "Mail Sent Success!";
 	}
 
@@ -59,7 +85,7 @@ public class EmailController {
 	public String sendMailfromTemplate(@RequestBody EmailDetails details) throws MessagingException {
 		if (details.template == null || details.template.trim().equals(""))
 			return "Template name not specified";
-		MimeMessage message = sender.createMimeMessage();
+		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
 		try {
 			if (details.template.equalsIgnoreCase("new-project-added")) {
@@ -187,14 +213,14 @@ public class EmailController {
 			e.printStackTrace();
 			return "Error while sending mail ..";
 		}
-		sender.send(message);
+		mailSender.send(message);
 		return "Mail Sent Success!";
 	}
 	
 	
 	@PostMapping("/sendMail")
 	public String sendMail(@RequestBody EmailDetails details) {
-		MimeMessage message = sender.createMimeMessage();
+		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		try {
 			helper.setTo(details.toList.toArray(new String[details.toList.size()]));
@@ -205,18 +231,30 @@ public class EmailController {
 			e.printStackTrace();
 			return "Error while sending mail ..";
 		}
-		sender.send(message);
+		mailSender.send(message);
 		return "Mail Sent Success!";
 	}
 	
-	@Autowired
-    JavaMailSender mailSender;
-     
-    @Autowired
-    VelocityEngine velocityEngine;
+	
    
     @PostMapping("/sendTemplateMail")
-	public String sendVelocityMail(@RequestBody EmailDetails details) {
+	public String addToQueue(@RequestBody EmailDetails details) {
+    	
+    	executorService.execute(new Runnable() {
+    	    public void run() {
+    	    	try {
+    	    	sendByTemplate(details);
+    	    	} catch (Exception e) {
+    	    		e.printStackTrace();
+    	    	}
+    	    }
+    	});
+		return "new thread started";
+	}
+    
+    
+    //@PostMapping("/sendTemplateMail")
+	public String sendByTemplate(@RequestBody EmailDetails details) {
     	
     	if (details.template == null || details.template.trim().equals(""))	return "Template name not specified";
     	if (details.paramMap == null || details.paramMap.isEmpty()) return "Parameters not specified";
@@ -272,22 +310,6 @@ public class EmailController {
           return "";
     }
     
-    private static Map<String,String> subjectMap = new HashMap<String,String>();
-    static {
-    	subjectMap.put("new-project-added", "New Projec created - enrollment open !!");
-    	subjectMap.put("new-project-added-po", "New Projec created ");
-    	subjectMap.put("payment-done", "Payment done successfully");
-    	subjectMap.put("payment-failed", "Payment Failed");
-    	subjectMap.put("add-credit", "Credits added to your profile");
-    	
-    	subjectMap.put("withdraw-credit", "Withdraw credit request - Successful");
-    	subjectMap.put("txn-success", "Withdraw credit request - Successful");
-    	subjectMap.put("txn-failed", "Transaction faliure");
-    	subjectMap.put("add-credit-failed", "Credit addition faliure ");
-
-    	subjectMap.put("new-user", "Welcome to My Buddy");
-    	subjectMap.put("new-enrollment-po", "New enrollment");
-    	subjectMap.put("new-enrollment-buddy", "New enrollment");
-    }
+    
   
 }
