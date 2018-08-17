@@ -28,11 +28,11 @@
           
     <p>Hello,<br></p><p><br>New project has been created 
 					 ${details.paramMap.get("projectName")}
-						Please enroll to start working on this project. <br></p><br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>
+						Please enroll to start working on this project.</p>
 						
     
     
-    	<p> Thanks,<br>My Buddy Team</p>
+    	<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

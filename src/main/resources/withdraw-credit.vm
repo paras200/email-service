@@ -33,7 +33,7 @@
 					 for you account linked with email -  ${details.paramMap.get("email")}
 					  . We will process this request within 5-7 business working days and the amount will be credited to your account. Please write to us in case of any doubts.<br></p><br><br>
     
-    	<p> Thanks,<br>My Buddy Team</p>
+    	<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

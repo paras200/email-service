@@ -29,7 +29,7 @@
     
        <p>Hello,<br></p><p><br>Payment of ${details.paramMap.get("amount")}
 						 - ${details.paramMap.get("cry")} has failed -
-						 Please retry the transaction <br></p> <br> Thanks,<br>My Buddy Team</p>
+						 Please retry the transaction <br></p> <br> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

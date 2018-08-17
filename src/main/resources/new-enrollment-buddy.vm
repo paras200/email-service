@@ -29,7 +29,7 @@
     <p>Hello,<br></p><p><br>New Enrollement - ${details.paramMap.get("email")}
 						 with skills as ${details.paramMap.get("skills")}
 						+ "<br></p><br><br>
-						<p> Thanks,<br>My Buddy Team</p>
+						<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

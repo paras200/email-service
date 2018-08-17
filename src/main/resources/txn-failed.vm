@@ -30,7 +30,7 @@
     <p>Hello,<br></p><p><br>Your transaction to transfer funds to 
 						${details.paramMap.get("toUser")}  For ${details.paramMap.get("nosOfcredit")}
 						 credits has failed, please retry the transaction. <br></p><br><br
-    <p> Thanks,<br>My Buddy Team</p>
+    <p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

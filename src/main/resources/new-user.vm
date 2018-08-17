@@ -29,7 +29,7 @@
     
       <p>Hello,<br></p><p><br>New user with email - ${details.paramMap.get("email")}
 						 has been added to My Buddy platform, Welcome Aboard. <br></p><br><br>
-						<p> Thanks,<br>My Buddy Team</p>
+						<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

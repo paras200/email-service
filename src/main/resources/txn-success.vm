@@ -31,7 +31,7 @@
 						  to user - ${details.paramMap.get("toUser")}
 						. A transaction charge of ${details.paramMap.get("txnCharge")} 
 						has been charged<br></p><br><br>
-    <p> Thanks,<br>My Buddy Team</p>
+    <p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

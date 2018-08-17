@@ -31,7 +31,7 @@
 						 with skills as ${details.paramMap.get("skills")}
 						.Please log in to the platform to approve enrollment and interact with the Buddy. <br></p><br><br>
 				
-				<p> Thanks,<br>My Buddy Team</p>
+				<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       
