@@ -42,7 +42,7 @@ public class EmailController {
     	subjectMap.put("add-credit", "Credits added to your profile");
     	
     	subjectMap.put("withdraw-credit", "Withdraw credit request - Successful");
-    	subjectMap.put("txn-success", "Withdraw credit request - Successful");
+    	subjectMap.put("txn-success", "Transaction - Successful");
     	subjectMap.put("txn-failed", "Transaction faliure");
     	subjectMap.put("add-credit-failed", "Credit addition faliure ");
 
