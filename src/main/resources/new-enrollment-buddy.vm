@@ -26,10 +26,10 @@
       <div style="padding:0 20px;max-width:600px;font-weight:300;margin:0 auto;text-align:left">
         <div style="padding:30px 0 20px;font-weight:300;background-color:#fff">
           
-    <p>Hello,<br></p><p><br>New Enrollement - ${details.paramMap.get("email")}
+    <p>Hello,<br></p><p><br> New Enrollment - ${details.paramMap.get("email")}
 						 with skills as ${details.paramMap.get("skills")}
 						+ "<br></p><br><br>
-						<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
+						<p> Thanks,<br> My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

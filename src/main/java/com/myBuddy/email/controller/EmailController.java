@@ -72,7 +72,7 @@ public class EmailController {
 			helper.setFrom("My-Buddy");
 			helper.setSubject(stg+"My Buddy Email Service");
 			helper.setText(
-					"<p>Dear Owners:<br></p><p><br>I am a test email to cirtify that email service is up<br></p><p><br> "
+					"<p>Dear Owners:<br></p><p><br>I am a test email to certify that email service is up<br></p><p><br> "
 					+ "If you have any doubts solve it within yourself :).<br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
 					true);
 		} catch (MessagingException e) {

@@ -28,7 +28,7 @@
       
 
 	<p>Hello,<br></p><p><br>${details.paramMap.get("credit")}
-						 added to user with email - ${details.paramMap.get("email")}
+						 added to the user with email - ${details.paramMap.get("email")}
 						, same will reflect in your home page in the Credit section<br></p><br><br>
 						
 

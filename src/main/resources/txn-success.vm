@@ -27,11 +27,11 @@
         <div style="padding:30px 0 20px;font-weight:300;background-color:#fff">
           
     <p>Hello,<br></p><p><br>${details.paramMap.get("credit")}
-						 Credits has been transferred from user - ${details.paramMap.get("fromUser")}
+						 Credits have been transferred from the user - ${details.paramMap.get("fromUser")}
 						  to user - ${details.paramMap.get("toUser")}
 						. A transaction charge of ${details.paramMap.get("txnCharge")} 
 						has been charged<br></p><br><br>
-    <p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
+    <p> Thanks,<br> My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       

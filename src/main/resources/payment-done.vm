@@ -28,7 +28,7 @@
           
     
      <p>Hello,<br></p><p><br>${details.paramMap.get("credit")}
-						Credits has been transferred from user - ${details.paramMap.get("fromUser")}
+						Credits have been transferred from the user - ${details.paramMap.get("fromUser")}
 					  to user - ${details.paramMap.get("toUser")}
 						<br>
 						<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>

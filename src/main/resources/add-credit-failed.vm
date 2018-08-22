@@ -27,8 +27,8 @@
         <div style="padding:30px 0 20px;font-weight:300;background-color:#fff">
         
         <p>Hello,<br></p><p><br>Your transaction to add ${details.paramMap.get("credit")}
-						credits has failed, please retry the transaction or get in touch with us using our contact us page. <br></p><br><br>
-        <p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
+						credits have failed, please retry the transaction or get in touch with us using our contact us page. <br></p><br><br>
+        <p> Thanks,<br> My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       
