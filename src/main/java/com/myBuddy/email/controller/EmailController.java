@@ -31,7 +31,7 @@ import com.myBuddy.email.model.EmailDetails;
 // @RequestMapping(path="/email")
 public class EmailController {
 	
-	private String stg = "STG :  ";
+	private String stg = "";
 
 	private static Map<String,String> subjectMap = new HashMap<String,String>();
     static {
@@ -45,6 +45,8 @@ public class EmailController {
     	subjectMap.put("txn-success", "Transaction - Successful");
     	subjectMap.put("txn-failed", "Transaction faliure");
     	subjectMap.put("add-credit-failed", "Credit addition faliure ");
+    	subjectMap.put("req-rcv-direct-deposit", "Credit addition Request - Direct deposit ");
+    	subjectMap.put("direct-deposit-success", "Direct deposit success");
 
     	subjectMap.put("new-user", "Welcome to My Buddy");
     	subjectMap.put("new-enrollment-po", "New enrollment");
@@ -72,7 +74,7 @@ public class EmailController {
 			helper.setFrom("My-Buddy");
 			helper.setSubject(stg+"My Buddy Email Service");
 			helper.setText(
-					"<p>Dear Owners:<br></p><p><br>I am a test email to certify that email service is up<br></p><p><br> "
+					"<p>Dear Owners:<br></p><p><br>I am a test email to cirtify that email service is up<br></p><p><br> "
 					+ "If you have any doubts solve it within yourself :).<br><br><br><br>Sincerely,<br></p><p><br><i>My Buddy Team</i></p>",
 					true);
 		} catch (MessagingException e) {
