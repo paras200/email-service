@@ -31,7 +31,7 @@ import com.myBuddy.email.model.EmailDetails;
 // @RequestMapping(path="/email")
 public class EmailController {
 	
-	private String stg = "";
+	private String stg = "STG  -  ";
 
 	private static Map<String,String> subjectMap = new HashMap<String,String>();
     static {
