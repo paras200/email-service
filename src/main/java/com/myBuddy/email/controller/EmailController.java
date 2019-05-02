@@ -10,6 +10,8 @@ import java.util.concurrent.Executors;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -18,6 +20,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +35,8 @@ import com.myBuddy.email.model.EmailDetails;
 public class EmailController {
 	
 	private String stg = "STG  -  ";
-
+	private static Log log = LogFactory.getLog(EmailController.class.getName());
+	
 	private static Map<String,String> subjectMap = new HashMap<String,String>();
     static {
     	subjectMap.put("new-project-added", "New Project created - Enrollment open !!");
@@ -60,6 +64,28 @@ public class EmailController {
     VelocityEngine velocityEngine;
     
     ExecutorService executorService = Executors.newSingleThreadExecutor();
+    
+    @GetMapping("/testSndMail")
+	public String testSndMail() throws MessagingException {
+    	
+    EmailDetails emailBody = new EmailDetails();
+	emailBody.setTemplate("new-project-added");
+	
+	List rec = new ArrayList<>();
+	rec.add("agnihotri.paras@live.com");
+	rec.add("agnihotri.paras@gmail.com");
+	
+	emailBody.setToList(rec);
+	
+	Map<String,String> paramMap = new HashMap<>();
+
+	paramMap.put("projectName", " A Test Project");
+	emailBody.setParamMap(paramMap);
+	
+    log.info("sending email .... "  + emailBody);
+	addToQueue(emailBody);
+	return "Mail Sent Success!";
+}
     
 	@RequestMapping("/sendMail")
 	public String sendMail() throws MessagingException {
@@ -131,7 +157,7 @@ public class EmailController {
          
         try {
             mailSender.send(preparator);
-            System.out.println("Message has been sent.............................");
+            log.info("Message has been sent.............................");
         }
         catch (MailException ex) {
             System.err.println(ex.getMessage());
@@ -155,7 +181,6 @@ public class EmailController {
                 model.put("details", details);
                  
                 String text = geVelocityTemplateContent(model, details.getTemplate());
-                System.out.println("Template content : "+text);
  
                 // use the true flag to indicate you need a multipart message
                 helper.setText(text, true);
@@ -173,10 +198,12 @@ public class EmailController {
             content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, template+".vm", model));
             return content.toString();
         }catch(Exception e){
-            System.out.println("Exception occured while processing velocity template:"+e.getMessage());
+        	log.info("Exception occured while processing velocity template:"+e.getMessage());
         }
           return "";
     }
+    
+    
     
     
   

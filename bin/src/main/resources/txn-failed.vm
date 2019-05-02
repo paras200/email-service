@@ -1,0 +1,41 @@
+
+
+<html>
+<body>
+<div style="font-size:16px;color:#2f2936;padding:0;font-family:&quot;Lato&quot;,&quot;Helvetica Neue&quot;,helvetica,sans-serif;background-image:url(http://res.cloudinary.com/brainethic/image/upload/v1518029313/iso_patch_lwsnrz_hu3rlc.png);width:100%;font-weight:300;margin:0;background-color:#fff">
+<div style="padding:0;font-size:0;display:none;max-height:0;font-weight:300;line-height:0"></div>
+<table style="border-radius:4px;font-size:16px;color:#2f2936;border-collapse:separate;border-spacing:0;max-width:700px;font-family:&quot;Lato&quot;,&quot;Helvetica Neue&quot;,helvetica,sans-serif;border:1px solid #c7d0d4;padding:0;width:100%;font-weight:300;margin:15px auto;background-color:#fff">
+  <tbody><tr style="font-weight:300">
+    <td style="padding:0;font-weight:300;margin:0;text-align:center">
+      <div style="padding:23px 0;font-size:14px;font-weight:300;border-bottom:1px solid #dee7eb">
+        <div style="padding:0 20px;max-width:600px;font-weight:300;margin:0 auto;text-align:left">
+          
+          <h1 style="font-size:38px;color:#000;letter-spacing:-1px;padding:0;font-weight:normal;margin:0;line-height:42px">
+            <a href="https://sentry.io" style="color:#4674ca;font-weight:500;text-decoration:none" target="_blank">
+              <img src="http://mybuddypro.com/assets/my-buddy.jpg" width="100px" height="30px" alt="Sentry" style="font-weight:200">
+            </a>
+          </h1>
+          
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr style="font-weight:300">
+    <td style="padding:0;font-weight:300;margin:0;text-align:center">
+      
+      <div style="padding:0 20px;max-width:600px;font-weight:300;margin:0 auto;text-align:left">
+        <div style="padding:30px 0 20px;font-weight:300;background-color:#fff">
+          
+    
+    <p>Hello,<br></p><p><br>Your transaction to transfer funds to 
+						${details.paramMap.get("toUser")}  For ${details.paramMap.get("nosOfcredit")}
+						 credits have failed, please retry the transaction. <br></p><br><br
+    <p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
+        </div>
+      </div>
+      
+     
+    </td>
+  </tr>
+</tbody></table><div></div><div>
+</div></div></body></html>
