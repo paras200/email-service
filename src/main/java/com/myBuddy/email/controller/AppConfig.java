@@ -41,13 +41,13 @@ public class AppConfig {
  
     /*
      * FreeMarker configuration.
-     */
+     
     @Bean
     public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
         FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
         bean.setTemplateLoaderPath("/fmtemplates/");
         return bean;
-    }
+    }*/
  
     /*
      * Velocity configuration.
