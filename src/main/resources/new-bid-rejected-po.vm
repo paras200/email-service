@@ -12,7 +12,7 @@
           
           <h1 style="font-size:38px;color:#000;letter-spacing:-1px;padding:0;font-weight:normal;margin:0;line-height:42px">
             <a href="https://sentry.io" style="color:#4674ca;font-weight:500;text-decoration:none" target="_blank">
-              <img src="https://mybuddypro.com/assets/images/logo.jpg" width="100px" height="30px" alt="Sentry" style="font-weight:200">
+              <img src="https://mybuddypro.com/assets/images/logo.jpg" width="100px" height="30px" alt="MyBuddy" style="font-weight:200">
             </a>
           </h1>
           
@@ -27,9 +27,9 @@
         <div style="padding:30px 0 20px;font-weight:300;background-color:#fff">
           
     
-     <p>Hello,<br></p><p><br> New bid made by - ${details.paramMap.get("email")}
-						 with skills as ${details.paramMap.get("skills")}
-						.Please log in to the platform to approve bid and interact with the Buddy. <br></p><br><br>
+     <p>Hello,<br></p><p><br> You have rejected bid by user - ${details.paramMap.get("email")}
+						 with skills as ${details.paramMap.get("skills")}. Please log in to see the details.
+						 <br></p><br><br>
 				
 				<p> Thanks,<br> My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>

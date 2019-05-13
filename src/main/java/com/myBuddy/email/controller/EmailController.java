@@ -49,11 +49,14 @@ public class EmailController {
 		subjectMap.put("txn-success", "Transaction - Successful");
 		subjectMap.put("txn-failed", "Transaction faliure");
 		subjectMap.put("add-credit-failed", "Credit addition faliure ");
-		subjectMap.put("req-rcv-direct-deposit", "Credit addition Request - Direct deposit ");
+		subjectMap.put("req-rcv-direct-deposit", "Credit addition Request - Direct deposit");
 		subjectMap.put("direct-deposit-success", "Direct deposit success");
 
 		subjectMap.put("new-user", "Welcome to My Buddy");
 		subjectMap.put("new-bid-po", "New Bid");
+		subjectMap.put("new-bid-approval-po", "Bid Approved !");
+		subjectMap.put("new-bid-rejection-po", "Bid Rejected !");
+		subjectMap.put("bid-closed-po", "Bid Closed !");
 		subjectMap.put("new-bid-buddy", "New Bid");
 	}
 
@@ -65,7 +68,7 @@ public class EmailController {
 
 	ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-	@GetMapping("/testSendMail")
+	@GetMapping("/SendtestMail")
 	public String testSendMail() throws MessagingException {
 
 		EmailDetails emailBody = new EmailDetails();
@@ -88,7 +91,7 @@ public class EmailController {
 		return "Mail Sent Success!11";
 	}
 
-	@RequestMapping("/sendMail")
+	@GetMapping("/sendMail")
 	public String sendMail() throws MessagingException {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");

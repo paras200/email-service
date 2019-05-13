@@ -25,14 +25,13 @@
       
       <div style="padding:0 20px;max-width:600px;font-weight:300;margin:0 auto;text-align:left">
         <div style="padding:30px 0 20px;font-weight:300;background-color:#fff">
-      
-
-	<p>Hello,<br></p><p><br>${details.paramMap.get("credit")}
-						 added to the user with email - ${details.paramMap.get("email")}
-						, same will reflect in your home page in the Credit section<br></p><br><br>
-						
-
-<p> Thanks,<br>My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
+          
+    
+     <p>Hello,<br></p><p><br> You have approved bid by user - ${details.paramMap.get("email")}
+						 with skills as ${details.paramMap.get("skills")}. Please log in to see the details.
+						 <br></p><br><br>
+				
+				<p> Thanks,<br> My Buddy Team,<br> Please mail to support@mybuddypro.com for any queries</p>
         </div>
       </div>
       
