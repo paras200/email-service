@@ -10,10 +10,11 @@ import java.util.concurrent.Executors;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myBuddy.email.model.EmailDetails;
@@ -33,8 +33,9 @@ import com.myBuddy.email.model.EmailDetails;
 @CrossOrigin(origins = "*")
 // @RequestMapping(path="/email")
 public class EmailController {
-
-	private String stg = "STG  -  ";
+	
+	@Value("${email.prefix}")
+	private String stg;
 	private static Log log = LogFactory.getLog(EmailController.class.getName());
 
 	private static Map<String, String> subjectMap = new HashMap<String, String>();
@@ -77,7 +78,7 @@ public class EmailController {
 		List rec = new ArrayList<>();
 		rec.add("agnihotri.paras@live.com");
 		rec.add("agnihotri.paras@gmail.com");
-		rec.add("sinhanil19@gmail.com");
+		//rec.add("sinhanil19@gmail.com");
 
 		emailBody.setToList(rec);
 
@@ -190,7 +191,8 @@ public class EmailController {
 
 				helper.setSubject(stg + (String) subjectMap.get(details.getTemplate()));
 
-				helper.setFrom("My-Buddy");
+				helper.setFrom("My-Buddy<mybuddypro@gmail.com>");
+				
 				if (bcc) {
 					helper.setBcc(details.toList.toArray(new String[details.toList.size()]));
 				} else
